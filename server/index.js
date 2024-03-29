@@ -1,8 +1,8 @@
+require('dotenv').config();
 import express from 'express';
 import bodyParser from 'body-parser';
 import {mongoose} from 'mongoose';
 import cors from 'cors';
-
 import postRoutes from './routes/posts.js';
 
 const app = express();
@@ -13,11 +13,10 @@ app.use(bodyParser.json({limit: "30mb", extended: true}));
 app.use(bodyParser.urlencoded({limit: "30mb", extended: true}));
 app.use(cors());
 
-const CONNECTION_URL = 'mongodb+srv://abhisheknyamati:wI9b4WuFD2aIqeqt@cluster0.7znxdkh.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
-
 const PORT = process.env.PORT || 5000;
+URI = process.env.MONGODB_URI;
 
-mongoose.connect(CONNECTION_URL)
+mongoose.connect(URI)
     .then(() => app.listen(PORT, () => console.log(`Server running on port ${PORT}`)))
     .catch((error) => console.log(error.message));
 
